@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Voice Assistant Training Lab</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <div class="nav-logo">
+                    <i class="fas fa-microphone-alt"></i>
+                    Speech-to-Text
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-button" id="learnButton">
+                    <i class="fas fa-graduation-cap"></i>
+                    Speech-to-Text kaise kaam karta hai
+                </button>
+                <div class="language-switcher-container">
+                    <button class="language-switcher" id="languageSwitcher">
+                        <i class="fas fa-globe"></i>
+                        Hinglish
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <a href="../" class="language-option">
+                            <i class="fas fa-flag-usa"></i>
+                            English
+                        </a>
+                        <a href="../hindi/" class="language-option">
+                            <i class="fas fa-flag"></i>
+                            Hindi
+                        </a>
+                        <a href="../hinglish/" class="language-option active">
+                            <i class="fas fa-language"></i>
+                            Hinglish
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header with Theme Toggle -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <div class="logo-text">Training Lab</div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="text-sm text-secondary">
+                    Real-time Speech Recognition Platform
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="fullscreen-toggle" id="fullscreenToggle" title="Toggle Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Tabs -->
+        <div class="main-tabs">
+            <button class="main-tab active" data-tab="chat">
+                <i class="fas fa-comments"></i>
+                AI Assistant Chat
+            </button>
+            <button class="main-tab" data-tab="search">
+                <i class="fas fa-search"></i>
+                Web Search
+            </button>
+            <button class="main-tab" data-tab="projects">
+                <i class="fas fa-th-large"></i>
+                Training Projects
+            </button>
+            <button class="main-tab" data-tab="how-it-works">
+                <i class="fas fa-code"></i>
+                How It Works
+            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Chat Interface -->
+            <div class="tab-content active" id="chat-tab">
+                <div class="chat-interface">
+                    <div class="chat-header">
+                        <div>
+                            <div class="chat-title">AI Assistant Chat</div>
+                            <div class="chat-subtitle">Speech-to-text se powered conversational interface
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="button button-secondary" id="clearChat">
+                                <i class="fas fa-trash"></i>
+                                Chat Clear karo
+                            </button>
+                            <button class="button button-secondary" id="exportChat">
+                                <i class="fas fa-download"></i>
+                                Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <div class="chat-left">
+                            <div class="chat-history" id="chatHistory">
+                                <div class="message-list">
+                                    <div class="message message-system">
+                                        <div class="message-content">
+                                            AI Assistant me aapka welcome hai. Main questions, analysis, aur decision support me help kar sakta hoon.
+                                            Microphone se bol sakte ho, ya neeche message type kar sakte ho.
+                                        </div>
+                                        <div class="message-meta">
+                                            <span>System</span>
+                                            <span>•</span>
+                                            <span>Just now</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-container">
+                                <div class="chat-input-wrapper">
+                                    <textarea class="chat-input"
+                                        placeholder="Message type karo, ya bolne ke liye microphone use karo..."
+                                        id="chatInput"></textarea>
+                                    <div class="chat-actions">
+                                        <button class="button button-icon button-secondary" id="attachFile">
+                                            <i class="fas fa-paperclip"></i>
+                                        </button>
+                                        <button class="button button-primary" id="sendMessage">
+                                            <i class="fas fa-paper-plane"></i>
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-right">
+                            <div class="voice-controls-panel">
+                                <div class="voice-controls-title">
+                                    <i class="fas fa-microphone"></i>
+                                    Voice Controls
+                                </div>
+                                <div class="microphone-container">
+                                    <button class="microphone-button idle" id="microphoneButton">
+                                        <svg class="microphone-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+                                            <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" />
+                                        </svg>
+                                    </button>
+                                    <div class="microphone-label" id="microphoneLabel">
+                                        Sunna start karne ke liye click karo
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-panel">
+                                <div class="settings-group">
+                                    <div class="settings-title">
+                                        <i class="fas fa-cog"></i>
+                                        Recognition Settings
+                                    </div>
+                                    <div class="settings-options">
+                                        <div class="setting-option">
+                                            <div class="setting-label">Language</div>
+                                            <div class="setting-control">
+                                                <select class="select-control" id="languageSelect">
+                                                    <option value="en-US">English (US)</option>
+                                                    <option value="en-GB">English (UK)</option>
+                                                    <option value="es-ES">Spanish</option>
+                                                    <option value="fr-FR">French</option>
+                                                    <option value="de-DE">German</option>
+                                                    <option value="ja-JP">Japanese</option>
+                                                    <option value="hi-IN">Hindi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="setting-option">
+                                            <div class="setting-label">Auto Punctuation</div>
+                                            <div class="setting-control">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" id="autoPunctuation" checked>
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="setting-option">
+                                            <div class="setting-label">Noise Reduction</div>
+                                            <div class="setting-control">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" id="noiseReduction" checked>
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="settings-group">
+                                    <div class="settings-title">
+                                        <i class="fas fa-chart-bar"></i>
+                                        Analytics
+                                    </div>
+                                    <div class="settings-options">
+                                        <div class="setting-option">
+                                            <div class="setting-label">Accuracy</div>
+                                            <div class="setting-control">
+                                                <span class="text-sm font-semibold text-success">96.2%</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-option">
+                                            <div class="setting-label">Words Processed</div>
+                                            <div class="setting-control">
+                                                <span class="text-sm font-semibold">1,245</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-option">
+                                            <div class="setting-label">Response Time</div>
+                                            <div class="setting-control">
+                                                <span class="text-sm font-semibold">240ms</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Interface -->
+            <div class="tab-content" id="search-tab">
+                <div class="search-interface">
+                    <div class="search-header">
+                        <div>
+                            <div class="chat-title">Web Search</div>
+                            <div class="chat-subtitle">Web par voice-enabled search</div>
+                        </div>
+                        <button class="button button-secondary" id="clearSearch">
+                            <i class="fas fa-times"></i>
+                            Search Clear karo
+                        </button>
+                    </div>
+                    <div class="search-container">
+                        <div class="search-input-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" class="search-input"
+                                    placeholder="Sites, documents search karo, ya question pucho..." id="searchInput">
+                                <button class="button button-primary" id="searchButton">
+                                    <i class="fas fa-search"></i>
+                                    Search
+                                </button>
+                                <button class="button button-secondary" id="voiceSearchButton">
+                                    <i class="fas fa-microphone"></i>
+                                    Voice Search
+                                </button>
+                            </div>
+                            <div class="text-sm text-tertiary mt-3">
+                                <i class="fas fa-info-circle"></i>
+                                Kisi bhi web platform par hands-free browsing ke liye voice search use karo
+                            </div>
+                        </div>
+                        <div class="search-results-container" id="searchResults">
+                            <!-- Results will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Interface -->
+            <div class="tab-content" id="projects-tab">
+                <div class="projects-interface">
+                    <div class="projects-header">
+                        <div>
+                            <div class="chat-title">Training Projects</div>
+                            <div class="chat-subtitle">Speech-to-text par based web apps</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="button button-secondary" id="filterActive">
+                                <i class="fas fa-check-circle"></i>
+                                Active
+                            </button>
+                            <button class="button button-secondary" id="filterAll">
+                                <i class="fas fa-th-list"></i>
+                                All
+                            </button>
+                        </div>
+                    </div>
+                    <div class="projects-container" id="projectsGrid">
+                        <!-- Projects will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Interface - UPDATED -->
+            <div class="tab-content" id="how-it-works-tab">
+                <div class="how-it-works-interface">
+                    <div class="how-it-works-header">
+                        <div>
+                            <div class="chat-title">How It Works</div>
+                            <div class="chat-subtitle">Architecture notes aur implementation details</div>
+                        </div>
+                        <button class="button button-primary" id="viewCode">
+                            <i class="fab fa-github"></i>
+                            View Source Code
+                        </button>
+                    </div>
+                    <div class="how-it-works-container">
+                        <div class="explanation-sidebar">
+                            <h3 class="font-semibold mb-4 text-primary">Architecture Overview</h3>
+                            <div class="flex flex-col gap-3">
+                                <button class="button button-secondary text-left" data-section="architecture">
+                                    <i class="fas fa-layer-group"></i>
+                                    System Architecture
+                                </button>
+                                <button class="button button-secondary text-left" data-section="recognition">
+                                    <i class="fas fa-brain"></i>
+                                    Speech Recognition
+                                </button>
+                                <button class="button button-secondary text-left" data-section="processing">
+                                    <i class="fas fa-cogs"></i>
+                                    Audio Processing
+                                </button>
+                                <button class="button button-secondary text-left" data-section="integration">
+                                    <i class="fas fa-plug"></i>
+                                    Web Integration
+                                </button>
+                                <button class="button button-secondary text-left" data-section="optimization">
+                                    <i class="fas fa-rocket"></i>
+                                    Performance Optimization
+                                </button>
+                                <button class="button button-secondary text-left" data-section="apis">
+                                    <i class="fas fa-code"></i>
+                                    API Reference
+                                </button>
+                            </div>
+                        </div>
+                        <div class="explanation-content" id="explanationContent">
+                            <!-- Content will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script defer src="../js/hinglish.js"></script>
+</body>
+
+</html>
