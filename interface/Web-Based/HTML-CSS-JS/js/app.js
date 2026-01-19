@@ -1071,7 +1071,7 @@ function initEventListeners() {
         });
     });
     elements.viewCode.addEventListener('click', () => {
-        window.open('https://github.com/voiceflow-platform', '_blank');
+        window.open('https://github.com/Sunil-KumarSharma/Voice-Assistant', '_blank');
     });
 
     // Fullscreen change listener
